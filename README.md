@@ -40,10 +40,12 @@ The Liberty files are present in the library path,
 
 Synthesis RTL Schematic :
 
-Area report:
+# Area report:
+![Screenshot (175)](https://github.com/user-attachments/assets/8a582839-34ab-4bc0-9abc-69e1f82c6ba8)
 
-Power Report:
+# Power Report:
+![Screenshot (176)](https://github.com/user-attachments/assets/cdb9d5c4-5445-4ef4-9d52-fd768937f1b6)
 
-Result:
+### Result:
 
 The generic netlist of Traffic Light Controller has been created, and area, power reports have been tabulated and generated using Genus.
