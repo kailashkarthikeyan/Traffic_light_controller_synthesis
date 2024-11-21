@@ -38,8 +38,23 @@ The Liberty files are present in the library path,
 
 • Genus Script file with .tcl file Extension commands are executed one by one to synthesize the netlist.
 ### run.tcl
-
+```
+read_libs /cadence/install/FOUNDRY-01/digital/90nm/dig/lib/slow.lib
+read_hdl traffic.v
+elaborate
+syn_generic
+report_area
+syn_map
+report_area
+syn_opt
+report_area 
+report_area > traffic_area.txt
+report_power > traffic_power.txt
+write_hdl > alu_32bit_netlist.v
+gui_show
+```
 ### traffic.v
+```
 `timescale 1 ns / 1 ps
 module TrafficLight(input clk, //LED_NS represent the North-South LEDs
 		    input rst, //LED_WE represent the West-East LEDs
@@ -127,10 +142,19 @@ endcase
 end
 
 endmodule
-
+```
+### sdc
+```
+create_clock -name clk -period 2 -waveform {0 1} [get_ports "clk"]
+set_clock_transition -rise 0.1 [get_clocks "clk"]
+set_clock_transition -fall 0.1 [get_clocks "clk"]
+set_clock_uncertainty 0.01 [get_ports "clk"]
+set_input_delay -max 0.8 [get_ports "rst"] -clock [get_clocks "clk"]
+set_output_delay -max 0.8 [get_ports "LED_NS"] -clock [get_clocks "clk"]
+set_output_delay -max 0.8 [get_ports "LED_WE"] -clock [get_clocks "clk"]
+```
 ### Synthesis RTL Schematic :
 ![image](https://github.com/user-attachments/assets/049b2668-ad27-40bc-bf26-870ca24ff353)
-
 
 ### Area report:
 ![Screenshot (175)](https://github.com/user-attachments/assets/8a582839-34ab-4bc0-9abc-69e1f82c6ba8)
